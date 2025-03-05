@@ -20,12 +20,12 @@ for line in [
     line.rstrip("\n") for line in lines if not (line.lstrip()).startswith("collapsed::")
 ]:
     if "#public" in line:
-        group = [line.replace("#public", "")]
         indent = count_indent(line)
+        group = [line.replace("#public", "")[indent:]]
         continue
     if indent >= 0:
         if count_indent(line) > indent:
-            group.append(line)
+            group.append(line[indent:])
         else:
             public_groups.append(group)
             group = []
